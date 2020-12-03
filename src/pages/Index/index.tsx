@@ -13,6 +13,7 @@ import {
     ContainerRecomendation, ContainerLike,
     Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet, ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet, ContainerInfoPet, TextInfo
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 export interface Data {
     image: string;
@@ -22,6 +23,7 @@ export interface Data {
 }
 
 const Details: React.FC = () => {
+    const navigation = useNavigation();
 
     const data: Data[] = [
         {
@@ -47,7 +49,7 @@ const Details: React.FC = () => {
             </ContainerHeader>
             <ContainerBody>
                 <ScrollView horizontal>
-                    <ContainerImage>
+                    <ContainerImage onPress={() => {navigation.navigate('PetList')}}>
                         <Image style={{ width: 130, height: 100 }} source={dog} />
                         <NamePet>Cachorro</NamePet>
                         <ContainerSeeMore>

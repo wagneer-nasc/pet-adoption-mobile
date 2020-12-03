@@ -3,6 +3,7 @@ import { Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex, Co
 import Icon from 'react-native-vector-icons/Feather';
 import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
 import SexyList from '../../components/SexyList';
+import { useNavigation } from '@react-navigation/native';
 
 export interface Data {
     image: string;
@@ -15,6 +16,7 @@ export interface Data {
 }
 
 const PetList: React.FC = () => {
+    const navigation = useNavigation();
     const data: Data[] = [
         {
             id: '01',
@@ -43,13 +45,13 @@ const PetList: React.FC = () => {
             weight: '8,4 kg',
         }
     ]
-    console.log(data)
+    
 
     return (
 
         <Container>
             <ContainerHeader>
-                <ButtonBack>
+                <ButtonBack onPress={()=> {navigation.navigate('Index')}}>
                     <Icon name="arrow-left" size={35} color="#77393e" />
                 </ButtonBack>
                 <TitleHeader>Dog</TitleHeader>
@@ -63,7 +65,7 @@ const PetList: React.FC = () => {
                 keyExtractor={(pet: Data) => pet.id}
                 renderItem={({ item }: { item: Data }) => (
                     <>
-                        <ContainerListInfo>
+                        <ContainerListInfo onPress={()=> {navigation.navigate('Details')}}>
                             <ImagePet source={{ uri: item.image }} />
                             <ContainerInfoPet>
                                 <NamePet>{item.name}</NamePet>

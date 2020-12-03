@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Image, Dimensions, Text, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,6 +20,7 @@ export interface Data {
 
 
 const Details: React.FC = () => {
+    const navigation = useNavigation();
     const data: Data = {
         image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
         name: 'Lebrador Retriever',
@@ -89,7 +91,8 @@ const Details: React.FC = () => {
             </ScrollView>
 
             <ContainerButtonBackAdaption>
-                <ButtonBack style={{ padding: 10 }}>
+                <ButtonBack onPress={() => {navigation.navigate('PetList')}}
+                 style={{ padding: 10 }}>
                     <Icon name="corner-down-left" size={30} color='#77393e' />
                 </ButtonBack>
                 <Button>Adpation</Button>

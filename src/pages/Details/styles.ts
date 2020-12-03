@@ -65,8 +65,7 @@ export const ContainerButtonBackAdaption = styled.View`
     background: #fff3f4;
     flex-direction: row; 
     justify-content: space-around;
-    padding: 20px;
-    margin-bottom: 10px;
+    padding: 20px; 
 `;
 export const ButtonBack = styled.TouchableOpacity``;
 
