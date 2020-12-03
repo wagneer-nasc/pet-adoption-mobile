@@ -5,7 +5,7 @@ import PetList from '../src/pages/PetList';
 
 const App: React.FC = () => {
     return (
-        <PetList></PetList>
+        <Index></Index>
     );
 }
 
