@@ -48,7 +48,6 @@ export const ContainerSeeMore = styled.View`
     flex-direction: row;
     padding: 10px;
 `;
-
 export const SeeMoreText = styled.Text`
     font-family: 'Roboto-Regular';
     font-size: 16px;
@@ -63,14 +62,7 @@ export const TextRecomendation = styled.Text`
     font-size: 18px;
     color: #77393e;
     margin-left: 130px;
-   
-
 `;
-
-
-
-
-
 export const FlatListPetRecomendation = styled(FlatList as new () => FlatList<Data>)`
      padding: 10px 25px 16px;    
 `;
@@ -92,7 +84,6 @@ export const ContainerInfoPet = styled.View`
     flex-direction: column;
     padding: 10px;
 `;
-
 export const TextInfo = styled.Text`
     color: #77393e;
     font-size: 18px;
@@ -111,11 +102,18 @@ export const ContainerLike = styled.View`
      justify-content: center;
      align-items: center;
      
-`;
- 
- 
+`;  
 export const NamePetList = styled.Text`
     font-family: 'Roboto-Bold';
     font-size: 18px;
     color: #77393e;
+`;
+export const ContainerButtonAddPet = styled.View`
+    background: #fff3f4;    
+    padding: 18px;
+    align-items: center;
+    justify-content: center;
+`;
+export const ButtonAddPet = styled.TouchableOpacity`
+    margin-bottom: 13px;
 `;

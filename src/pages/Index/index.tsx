@@ -1,17 +1,16 @@
 import React from 'react';
-import { Image, ScrollView, Text } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import logo from '../../assets/logo.png';
 import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
 import porquinhoDaIndia from '../../assets/porquinhoDaIndia.png';
 import papagaio from '../../assets/papagaio.png';
-import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
 
 import Icon from 'react-native-vector-icons/Feather';
 import {
-    NamePetList, TextRecomendation,
+    NamePetList, TextRecomendation, ContainerButtonAddPet,
     ContainerRecomendation, ContainerLike,
-    Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet, ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet, ContainerInfoPet, TextInfo
+    Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet, ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet, ContainerInfoPet, TextInfo, ButtonAddPet
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -24,6 +23,10 @@ export interface Data {
 
 const Details: React.FC = () => {
     const navigation = useNavigation();
+
+    function handleNavigateToPetList(type: string) {
+        navigation.navigate('PetList', { type });
+    }
 
     const data: Data[] = [
         {
@@ -49,33 +52,33 @@ const Details: React.FC = () => {
             </ContainerHeader>
             <ContainerBody>
                 <ScrollView horizontal>
-                    <ContainerImage onPress={() => {navigation.navigate('PetList')}}>
+                    <ContainerImage onPress={() => { handleNavigateToPetList('Cachorro') }}>
                         <Image style={{ width: 130, height: 100 }} source={dog} />
-                        <NamePet>Cachorro</NamePet>
+                        <NamePet>Cachorros</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
                             <Icon name="chevron-right" size={20} color="#77393e" />
                         </ContainerSeeMore>
                     </ContainerImage>
-                    <ContainerImage>
+                    <ContainerImage onPress={() => { handleNavigateToPetList('Gato') }}>
                         <Image style={{ width: 130, height: 100 }} source={cat} />
-                        <NamePet>Gato</NamePet>
+                        <NamePet>Gatos</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
                             <Icon name="chevron-right" size={20} color="#77393e" />
                         </ContainerSeeMore>
                     </ContainerImage>
-                    <ContainerImage>
+                    <ContainerImage onPress={() => { handleNavigateToPetList('Roedores') }}>
                         <Image style={{ width: 130, height: 100 }} source={porquinhoDaIndia} />
-                        <NamePet>Porquinho da índia</NamePet>
+                        <NamePet>Roedores</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
                             <Icon name="chevron-right" size={20} color="#77393e" />
                         </ContainerSeeMore>
                     </ContainerImage>
-                    <ContainerImage>
+                    <ContainerImage onPress={() => { handleNavigateToPetList('Aves') }}>
                         <Image style={{ width: 130, height: 100 }} source={papagaio} />
-                        <NamePet>Papagaio</NamePet>
+                        <NamePet>Aves</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
                             <Icon name="chevron-right" size={20} color="#77393e" />
@@ -105,9 +108,15 @@ const Details: React.FC = () => {
                             </ContainerListInfo>
                         </>
                     )}
-
                 />
             </ContainerRecomendation>
+
+            <ContainerButtonAddPet>
+                <ButtonAddPet onPress={() => { navigation.navigate('AddPet') }}>
+                    <Icon
+                        name="plus-circle" size={45} color="#77393e" />
+                </ButtonAddPet>
+            </ContainerButtonAddPet>
         </Container>
     );
 }

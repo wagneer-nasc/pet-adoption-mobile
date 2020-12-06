@@ -1,34 +1,53 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Dimensions, Text, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
+import api from '../../service/api';
 import {
     ContainerImages, ImagePet,
     ButtonBack, ContainerNameLikes, Container, ContainerBody, NamePet, NickDescription, LabelAbout, TextAbout, ContainerInfPet, ContainerInfo, TextInfo, ButtonLike, ContainerButtonBackAdaption
 } from './styles';
 
-export interface Data {
-    image: string;
-    name: string,
-    adress: string,
-    age: string,
-    sex: string,
-    weight: string,
-    about: string,
+export interface Pet {
+    id: string,
+    name: string
+    name_race: string
+    specie: string
+    about: string
+    sex: string
+    address: string
+    age: string
+    wieght: string
+    contact: string
+    images: Array<{
+        id: string,
+        path: string,
+    }>
+
 }
 
 
+interface PetListRouteParams {
+    id: string;
+}
 const Details: React.FC = () => {
     const navigation = useNavigation();
-    const data: Data = {
-        image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-        name: 'Lebrador Retriever',
-        adress: 'Brasil, Recife-PE',
-        age: '8 month',
-        sex: 'Female',
-        weight: '8,4 kg',
-        about: 'A adoção de animais de estimação é o processo de assumir a responsabilidade por um animal de estimação que um proprietário anterior abandonou ou liberou para uma organização de abrigo ou resgate. Fontes comuns para animais de estimação adotáveis ​​são abrigos de animais e grupos de resgate.'
+
+    const route = useRoute();
+    const [pet, setPet] = useState<Pet>();
+
+    const params = route.params as PetListRouteParams;
+    console.log(params.id)
+
+    useEffect(() => {
+        loadPetDetails();
+    }, [params.id])
+
+    async function loadPetDetails() {
+        await api.get(`/pets/${params.id}/show`).then(response => {
+            setPet(response.data);
+        })
     }
 
     return (
@@ -41,49 +60,49 @@ const Details: React.FC = () => {
                         height: 380
                     }}
                         source={{
-                            uri: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
+                            uri: pet?.images[0].path,
                         }} />
 
                     <ContainerBody>
                         <ContainerNameLikes>
-                            <NamePet>Cassy</NamePet>
+                            <NamePet>{pet?.name_race}</NamePet>
                             <ButtonLike>
                                 <Icon name="heart" size={30} color='#77393e' />
                                 <TextAbout>20 likes</TextAbout>
                             </ButtonLike>
                         </ContainerNameLikes>
 
-                        <NickDescription>Apple Head Cihuahua</NickDescription>
+                        <NickDescription>{pet?.name}</NickDescription>
 
                         <ContainerImages>
                             <ImagePet source={{
-                                uri: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
+                                uri: pet?.images[0].path,
                             }} />
                             <ImagePet source={{
-                                uri: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
+                                uri: pet?.images[1].path,
                             }} />
                             <ImagePet source={{
-                                uri: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
+                                uri: pet?.images[2].path,
                             }} />
                         </ContainerImages>
 
                         <LabelAbout>About</LabelAbout>
-                        <TextAbout>{data.about}</TextAbout>
+                        <TextAbout>{pet?.about}</TextAbout>
 
                         <ContainerInfPet>
                             <ContainerInfo>
-                                <TextInfo>Age</TextInfo>
-                                <TextInfo>9 month</TextInfo>
+                                <TextInfo>Idade</TextInfo>
+                                <TextInfo>{pet?.age}</TextInfo>
                             </ContainerInfo>
 
                             <ContainerInfo>
-                                <TextInfo>Weight</TextInfo>
-                                <TextInfo>8,6 kg</TextInfo>
+                                <TextInfo>Peso</TextInfo>
+                                <TextInfo>{pet?.wieght}</TextInfo>
                             </ContainerInfo>
 
                             <ContainerInfo>
-                                <TextInfo>Sex</TextInfo>
-                                <TextInfo>Female</TextInfo>
+                                <TextInfo>Sexo</TextInfo>
+                                <TextInfo>{pet?.sex}</TextInfo>
                             </ContainerInfo>
                         </ContainerInfPet>
                     </ContainerBody>
@@ -91,8 +110,8 @@ const Details: React.FC = () => {
             </ScrollView>
 
             <ContainerButtonBackAdaption>
-                <ButtonBack onPress={() => {navigation.navigate('PetList')}}
-                 style={{ padding: 10 }}>
+                <ButtonBack onPress={() => { navigation.navigate('PetList') }}
+                    style={{ padding: 10 }}>
                     <Icon name="corner-down-left" size={30} color='#77393e' />
                 </ButtonBack>
                 <Button>Adpation</Button>

@@ -1,107 +1,140 @@
-import React from 'react';
-import { Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex, ContainerAgeWeight, ContainerIconAddress, ButtonBack, ContainerBody, FlatListPet, ContainerListInfo, NamePet, ImagePet, ContainerInfoPet, ContainerInfAgeWeight } from './styles';
+import React, { useEffect, useState } from 'react';
+import {
+    ContainerButtonAddPet, ButtonAddPet, ContainerSexAll, SexAll, TextSex,
+    Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex, ContainerAgeWeight, ContainerIconAddress, ButtonBack, ContainerSobHeader, FlatListPet, ContainerListInfo, NamePet, ImagePet, ContainerInfoPet, ContainerInfAgeWeight
+} from './styles';
 import Icon from 'react-native-vector-icons/Feather';
 import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
-import SexyList from '../../components/SexyList';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../../service/api';
+import { View } from 'react-native'
 
-export interface Data {
-    image: string;
-    name: string,
-    adress: string,
-    age: string,
-    sex: string,
-    weight: string,
+export interface Pet {
     id: string,
+    name: string
+    name_race: string
+    specie: string
+    about: string
+    sex: string
+    address: string
+    age: string
+    wieght: string
+    contact: string
+    images: Array<{
+        id: string,
+        path: string,
+    }>
+
+}
+
+interface PetListRouteParams {
+    type: string;
 }
 
 const PetList: React.FC = () => {
     const navigation = useNavigation();
-    const data: Data[] = [
-        {
-            id: '01',
-            image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-            name: 'Lebrador Retriever',
-            adress: 'Brasil, Recife-PE',
-            age: '8 month',
-            sex: 'Female',
-            weight: '8,4 kg',
-        }, {
-            id: '02',
-            image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-            name: 'Shetland',
-            adress: 'Brasil, Recife-PE',
-            age: '8 month',
-            sex: 'Male',
-            weight: '8,4 kg',
-        }
-        , {
-            id: '03',
-            image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-            name: 'PitBull',
-            adress: 'Brasil, Recife-PE',
-            age: '8 month',
-            sex: 'Male',
-            weight: '8,4 kg',
-        }
-    ]
-    
+    const route = useRoute();
+    const [pets, setPets] = useState<Pet[]>([]);
+    const params = route.params as PetListRouteParams;
+
+    useEffect(() => {
+        loadPets();
+
+    }, [params.type])
+
+    console.log(params.type);
+
+    async function loadPets() {
+        await api.get(`/pets/${params.type}`).then(response => {
+            setPets(response.data);
+        })
+    }
+
+    function handleNavigateToDetailsPet(id: string) {
+        navigation.navigate('Details', { id });
+    }
+
+    async function handleListFilter(filter: string) {
+        await api.get(`/pets/${params.type}/${filter}/show`).then(response => {
+            setPets(response.data);
+        })
+
+    }
 
     return (
 
         <Container>
             <ContainerHeader>
-                <ButtonBack onPress={()=> {navigation.navigate('Index')}}>
+                <ButtonBack onPress={() => { navigation.navigate('Index') }}>
                     <Icon name="arrow-left" size={35} color="#77393e" />
                 </ButtonBack>
-                <TitleHeader>Dog</TitleHeader>
+                <TitleHeader>{params.type}</TitleHeader>
             </ContainerHeader>
-
-            <ContainerBody>
-                <SexyList />
-            </ContainerBody>
+            <ContainerSobHeader>
+                <ContainerSexAll>
+                    <SexAll onPress={() => { loadPets() }}>
+                        <View>
+                            <IconSexy name="symbol-male" size={25} color="#77393e" />
+                            <IconSexy name="symbol-female" size={25} color="#77393e" />
+                        </View>
+                        <TextSex>Todos</TextSex>
+                    </SexAll>
+                    <SexAll onPress={() => { handleListFilter('M') }}>
+                        <IconSexy name="symbol-male" size={30} color="#77393e" />
+                        <TextSex>Macho</TextSex>
+                    </SexAll>
+                    <SexAll onPress={() => { handleListFilter('F') }}>
+                        <IconSexy name="symbol-female" size={30} color="#77393e" />
+                        <TextSex>Fêmea</TextSex>
+                    </SexAll>
+                </ContainerSexAll>
+            </ContainerSobHeader>
             <FlatListPet
-                data={data}
-                keyExtractor={(pet: Data) => pet.id}
-                renderItem={({ item }: { item: Data }) => (
+                data={pets}
+                keyExtractor={(pet: Pet) => pet.id}
+                renderItem={({ item }: { item: Pet }) => (
                     <>
-                        <ContainerListInfo onPress={()=> {navigation.navigate('Details')}}>
-                            <ImagePet source={{ uri: item.image }} />
+                        <ContainerListInfo onPress={() => { handleNavigateToDetailsPet(item.id) }}>
+                            <ImagePet source={{ uri: item.images[0].path }} />
                             <ContainerInfoPet>
-                                <NamePet>{item.name}</NamePet>
+                                <NamePet>{item.name_race}</NamePet>
                                 <ContainerIconAddress>
                                     <Icon name="map-pin" size={20} color="#77393e" style={{ paddingRight: 8 }} />
-                                    <TextInfo>{item.adress}</TextInfo>
+                                    <TextInfo>{item.address}</TextInfo>
                                 </ContainerIconAddress>
 
                                 <ContainerIconSex>
-                                    {item.sex == 'Female' ?
-                                        <IconSexy name="symbol-female" size={20} color="#77393e" style={{ paddingRight: 8 }} /> :
-                                        <IconSexy name="symbol-male" size={20} color="#77393e" style={{ paddingRight: 8 }} />
+                                    {
+                                        item.sex === 'F' ?
+                                            <IconSexy name="symbol-female" size={20} color="#77393e" style={{ paddingRight: 8 }} /> :
+                                            <IconSexy name="symbol-male" size={20} color="#77393e" style={{ paddingRight: 8 }} />
                                     }
                                     <TextInfo>{item.sex}</TextInfo>
                                 </ContainerIconSex>
 
                                 <ContainerInfAgeWeight>
                                     <ContainerAgeWeight>
-                                        <TextInfo>Age</TextInfo>
+                                        <TextInfo>idade</TextInfo>
                                         <TextInfo>{item.age}</TextInfo>
                                     </ContainerAgeWeight>
 
                                     <ContainerAgeWeight>
-                                        <TextInfo>Weight</TextInfo>
-                                        <TextInfo>{item.weight}</TextInfo>
+                                        <TextInfo>peso</TextInfo>
+                                        <TextInfo>{item.wieght}</TextInfo>
                                     </ContainerAgeWeight>
                                 </ContainerInfAgeWeight>
 
                             </ContainerInfoPet>
-
                         </ContainerListInfo>
                     </>
                 )}
-
             />
-
+            <ContainerButtonAddPet>
+                <ButtonAddPet onPress={() => { navigation.navigate('AddPet') }}>
+                    <Icon
+                        name="plus-circle" size={45} color="#77393e" />
+                </ButtonAddPet>
+            </ContainerButtonAddPet>
         </Container>
 
     );
