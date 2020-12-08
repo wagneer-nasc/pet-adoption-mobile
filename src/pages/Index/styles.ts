@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
-import { Data } from './index';
+import { Pet } from './index';
 
 export const Container = styled.View`
     flex: 1;
@@ -63,7 +63,7 @@ export const TextRecomendation = styled.Text`
     color: #77393e;
     margin-left: 130px;
 `;
-export const FlatListPetRecomendation = styled(FlatList as new () => FlatList<Data>)`
+export const FlatListPetRecomendation = styled(FlatList as new () => FlatList<Pet>)`
      padding: 10px 25px 16px;    
 `;
 
@@ -90,14 +90,16 @@ export const TextInfo = styled.Text`
     font-family: 'Roboto-Regular';
     margin-bottom: 5px;
 `;
-export const ContainerLike = styled.View`
+export const ContainerViews = styled.View`
      height: 60px;
-     width: 60px; 
-     padding: 3px;
+     width: 60px;  
      border-radius: 10px;
      border-width: 1px;
      border-color: #77393e;
-     margin-left: 150px;     
+     margin-left: 150px;    
+     position: absolute; 
+
+     margin-top: 15px;      
 
      justify-content: center;
      align-items: center;
@@ -107,13 +109,19 @@ export const NamePetList = styled.Text`
     font-family: 'Roboto-Bold';
     font-size: 18px;
     color: #77393e;
+    
 `;
 export const ContainerButtonAddPet = styled.View`
     background: #fff3f4;    
     padding: 18px;
     align-items: center;
     justify-content: center;
+    
 `;
 export const ButtonAddPet = styled.TouchableOpacity`
     margin-bottom: 13px;
+`;
+export const ContainerIconSex = styled.View`
+    flex-direction: row;  
+    margin-top: 15px;
 `;

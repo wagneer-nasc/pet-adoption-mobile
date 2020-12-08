@@ -11,15 +11,16 @@ import {
 
 export interface Pet {
     id: string,
-    name: string
-    name_race: string
-    specie: string
-    about: string
-    sex: string
-    address: string
-    age: string
-    wieght: string
-    contact: string
+    name: string,
+    name_race: string,
+    specie: string,
+    about: string,
+    sex: string,
+    address: string,
+    age: string,
+    wieght: string,
+    contact: string,
+    view: string,
     images: Array<{
         id: string,
         path: string,
@@ -30,6 +31,7 @@ export interface Pet {
 
 interface PetListRouteParams {
     id: string;
+    type: string;
 }
 const Details: React.FC = () => {
     const navigation = useNavigation();
@@ -38,11 +40,15 @@ const Details: React.FC = () => {
     const [pet, setPet] = useState<Pet>();
 
     const params = route.params as PetListRouteParams;
-    console.log(params.id)
 
     useEffect(() => {
+        handleUpdateViewPet(params.id);
         loadPetDetails();
     }, [params.id])
+
+    async function handleUpdateViewPet(id: string) {
+        await api.put(`/pets/${id}/update`);
+    }
 
     async function loadPetDetails() {
         await api.get(`/pets/${params.id}/show`).then(response => {
@@ -68,7 +74,7 @@ const Details: React.FC = () => {
                             <NamePet>{pet?.name_race}</NamePet>
                             <ButtonLike>
                                 <Icon name="heart" size={30} color='#77393e' />
-                                <TextAbout>20 likes</TextAbout>
+                                <TextAbout>{pet?.view}</TextAbout>
                             </ButtonLike>
                         </ContainerNameLikes>
 
@@ -110,7 +116,7 @@ const Details: React.FC = () => {
             </ScrollView>
 
             <ContainerButtonBackAdaption>
-                <ButtonBack onPress={() => { navigation.navigate('PetList') }}
+                <ButtonBack onPress={() => { navigation.goBack() }}
                     style={{ padding: 10 }}>
                     <Icon name="corner-down-left" size={30} color='#77393e' />
                 </ButtonBack>

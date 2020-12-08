@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     ContainerButtonAddPet, ButtonAddPet, ContainerSexAll, SexAll, TextSex,
     Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex, ContainerAgeWeight, ContainerIconAddress, ButtonBack, ContainerSobHeader, FlatListPet, ContainerListInfo, NamePet, ImagePet, ContainerInfoPet, ContainerInfAgeWeight
@@ -7,19 +7,20 @@ import Icon from 'react-native-vector-icons/Feather';
 import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../../service/api';
-import { View } from 'react-native'
+import { ButtonProps, TouchableOpacity, TouchableOpacityComponent, TouchableOpacityProps, View } from 'react-native'
 
 export interface Pet {
     id: string,
-    name: string
-    name_race: string
-    specie: string
-    about: string
-    sex: string
-    address: string
-    age: string
-    wieght: string
-    contact: string
+    name: string,
+    name_race: string,
+    specie: string,
+    about: string,
+    sex: string,
+    address: string,
+    age: string,
+    wieght: string,
+    contact: string,
+    view: number,
     images: Array<{
         id: string,
         path: string,
@@ -35,6 +36,7 @@ const PetList: React.FC = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const [pets, setPets] = useState<Pet[]>([]);
+    const [isClick, setIsClick] = useState<string>('');
     const params = route.params as PetListRouteParams;
 
     useEffect(() => {
@@ -42,19 +44,19 @@ const PetList: React.FC = () => {
 
     }, [params.type])
 
-    console.log(params.type);
-
     async function loadPets() {
+        setIsClick('ALL');
         await api.get(`/pets/${params.type}`).then(response => {
             setPets(response.data);
         })
     }
 
-    function handleNavigateToDetailsPet(id: string) {
+    function handleNavigateToDetailsPet(id: string) { 
         navigation.navigate('Details', { id });
     }
 
     async function handleListFilter(filter: string) {
+        setIsClick(filter);
         await api.get(`/pets/${params.type}/${filter}/show`).then(response => {
             setPets(response.data);
         })
@@ -72,18 +74,24 @@ const PetList: React.FC = () => {
             </ContainerHeader>
             <ContainerSobHeader>
                 <ContainerSexAll>
-                    <SexAll onPress={() => { loadPets() }}>
+                    <SexAll
+                        style={{ backgroundColor: isClick == 'ALL' ? '#e0b0b4' : '#FFF' }}
+                        onPress={() => { loadPets() }}>
                         <View>
                             <IconSexy name="symbol-male" size={25} color="#77393e" />
                             <IconSexy name="symbol-female" size={25} color="#77393e" />
                         </View>
                         <TextSex>Todos</TextSex>
                     </SexAll>
-                    <SexAll onPress={() => { handleListFilter('M') }}>
+                    <SexAll
+                        style={{ backgroundColor: isClick == 'M' ? '#e0b0b4' : '#FFF' }}
+                        onPress={() => { handleListFilter('M') }}>
                         <IconSexy name="symbol-male" size={30} color="#77393e" />
                         <TextSex>Macho</TextSex>
                     </SexAll>
-                    <SexAll onPress={() => { handleListFilter('F') }}>
+                    <SexAll
+                        style={{ backgroundColor: isClick == 'F' ? '#e0b0b4' : '#FFF' }}
+                        onPress={() => { handleListFilter('F') }}>
                         <IconSexy name="symbol-female" size={30} color="#77393e" />
                         <TextSex>Fêmea</TextSex>
                     </SexAll>

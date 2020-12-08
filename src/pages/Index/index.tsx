@@ -1,46 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView } from 'react-native';
 import logo from '../../assets/logo.png';
 import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
 import porquinhoDaIndia from '../../assets/porquinhoDaIndia.png';
 import papagaio from '../../assets/papagaio.png';
+import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
 
 import Icon from 'react-native-vector-icons/Feather';
 import {
-    NamePetList, TextRecomendation, ContainerButtonAddPet,
-    ContainerRecomendation, ContainerLike,
+    NamePetList, TextRecomendation, ContainerButtonAddPet, ContainerIconSex,
+    ContainerRecomendation, ContainerViews,
     Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet, ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet, ContainerInfoPet, TextInfo, ButtonAddPet
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../service/api';
 
-export interface Data {
-    image: string;
-    name: string,
-    like: string,
+
+export interface Pet {
     id: string,
+    name: string,
+    name_race: string,
+    specie: string,
+    about: string,
+    sex: string,
+    address: string,
+    age: string,
+    wieght: string,
+    contact: string,
+    view: number,
+    images: Array<{
+        id: string,
+        path: string,
+    }>
+
 }
 
 const Details: React.FC = () => {
     const navigation = useNavigation();
+    const [pets, setPets] = useState<Pet[]>([]);
+
+    useEffect(() => {
+        loadPetsRecomendation();
+
+    }, []);
+
+    async function loadPetsRecomendation() {
+        await api.get(`/pets/show/recomedation`).then(response => {
+            setPets(response.data);
+        })
+    }
 
     function handleNavigateToPetList(type: string) {
         navigation.navigate('PetList', { type });
     }
+    function handleNavigateToDetailsPet(id: string, type: string) {
+        navigation.navigate('Details', { id, type });
+    }
 
-    const data: Data[] = [
-        {
-            id: '01',
-            image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-            name: 'Lebrador Retriever',
-            like: '50',
-        }, {
-            id: '02',
-            image: 'https://catracalivre.com.br/wp-content/uploads/sites/15/2017/06/Cachorro-correndo-iStock.jpg',
-            name: 'Shetland',
-            like: '70',
-        }
-    ]
+
     return (
         <Container>
             <ContainerHeader>
@@ -90,19 +108,27 @@ const Details: React.FC = () => {
                 <TextRecomendation>Recomendações</TextRecomendation>
 
                 <FlatListPetRecomendation
-                    data={data}
-                    keyExtractor={(pet: Data) => pet.id}
-                    renderItem={({ item }: { item: Data }) => (
+                    data={pets}
+                    keyExtractor={(pet: Pet) => pet.id}
+                    renderItem={({ item }: { item: Pet }) => (
                         <>
-                            <ContainerListInfo>
-                                <ImagePet source={{ uri: item.image }} />
+                            <ContainerListInfo onPress={() => { handleNavigateToDetailsPet(item.id, item.specie) }}>
+                                <ImagePet source={{ uri: item.images[0].path }} />
 
                                 <ContainerInfoPet>
-                                    <NamePetList>{item.name}</NamePetList>
-                                    <ContainerLike>
-                                        <TextInfo>{item.like}</TextInfo>
-                                        <TextInfo>Likes</TextInfo>
-                                    </ContainerLike>
+                                    <NamePetList>{item.name_race}</NamePetList>
+                                    <ContainerIconSex>
+                                        {
+                                            item.sex === 'Fêmea' ?
+                                                <IconSexy name="symbol-female" size={20} color="#77393e" style={{ paddingRight: 8 }} /> :
+                                                <IconSexy name="symbol-male" size={20} color="#77393e" style={{ paddingRight: 8 }} />
+                                        }
+                                        <TextInfo>{item.sex}</TextInfo>
+                                    </ContainerIconSex>
+                                    <ContainerViews>
+                                        <TextInfo>{item.view}</TextInfo>
+                                        <TextInfo>Views</TextInfo>
+                                    </ContainerViews>
 
                                 </ContainerInfoPet>
                             </ContainerListInfo>
