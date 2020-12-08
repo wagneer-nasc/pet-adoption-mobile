@@ -24,14 +24,17 @@ export const NamePet = styled.Text`
     margin-bottom: 4px;
 `;
 export const ContainerInfo = styled.View`
-    height: 60px;
-    width: 80px; 
+    height: 70px;
+    width: 100px; 
     padding: 3px;
     border-radius: 10px;
     border-width: 1px;
     border-color: #77393e;
     margin-left: 4px;
     margin-right: 4px;
+
+    align-items: center;
+    justify-content: center;
 
 `; 
 export const ContainerInfPet = styled.View`
@@ -56,7 +59,9 @@ export const TextAbout = styled.Text`
     font-size: 15px;
     margin-bottom: 10px;
 `;
-export const ButtonLike = styled.TouchableOpacity``;
+export const Views = styled.View`
+    margin-right: 17px;
+`;
 export const ContainerNameLikes = styled.View`
    flex-direction: row;
    justify-content: space-between;

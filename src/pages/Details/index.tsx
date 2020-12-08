@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import api from '../../service/api';
 import {
     ContainerImages, ImagePet,
-    ButtonBack, ContainerNameLikes, Container, ContainerBody, NamePet, NickDescription, LabelAbout, TextAbout, ContainerInfPet, ContainerInfo, TextInfo, ButtonLike, ContainerButtonBackAdaption
+    ButtonBack, ContainerNameLikes, Container, ContainerBody, NamePet, NickDescription, LabelAbout, TextAbout, ContainerInfPet, ContainerInfo, TextInfo, Views, ContainerButtonBackAdaption
 } from './styles';
 
 export interface Pet {
@@ -72,10 +72,10 @@ const Details: React.FC = () => {
                     <ContainerBody>
                         <ContainerNameLikes>
                             <NamePet>{pet?.name_race}</NamePet>
-                            <ButtonLike>
-                                <Icon name="heart" size={30} color='#77393e' />
-                                <TextAbout>{pet?.view}</TextAbout>
-                            </ButtonLike>
+                            <Views>
+                                <Icon name="eye" size={28} color='#77393e' />
+                                <TextAbout> {pet?.view}</TextAbout>
+                            </Views>
                         </ContainerNameLikes>
 
                         <NickDescription>{pet?.name}</NickDescription>
@@ -92,7 +92,7 @@ const Details: React.FC = () => {
                             }} />
                         </ContainerImages>
 
-                        <LabelAbout>About</LabelAbout>
+                        <LabelAbout>Sobre</LabelAbout>
                         <TextAbout>{pet?.about}</TextAbout>
 
                         <ContainerInfPet>
@@ -120,7 +120,7 @@ const Details: React.FC = () => {
                     style={{ padding: 10 }}>
                     <Icon name="corner-down-left" size={30} color='#77393e' />
                 </ButtonBack>
-                <Button>Adpation</Button>
+                <Button>Adotar</Button>
             </ContainerButtonBackAdaption>
         </>
     );

@@ -61,13 +61,16 @@ export const TextInfo = styled.Text`
 `;
 export const ContainerAgeWeight = styled.View`
      height: 60px;
-     width: 80px; 
+     width: 90px; 
      padding: 3px;
      border-radius: 10px;
      border-width: 1px;
      border-color: #77393e;
-     margin-left: 4px;
-     margin-right: 4px;
+     margin-left: 1px;
+     margin-right: 1px;
+
+     align-items: center;
+     justify-content: center;
      
 `; 
 export const ContainerIconAddress = styled.View`

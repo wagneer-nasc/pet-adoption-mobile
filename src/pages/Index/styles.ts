@@ -96,7 +96,7 @@ export const ContainerViews = styled.View`
      border-radius: 10px;
      border-width: 1px;
      border-color: #77393e;
-     margin-left: 150px;    
+     margin-left: 190px;    
      position: absolute; 
 
      margin-top: 15px;      
