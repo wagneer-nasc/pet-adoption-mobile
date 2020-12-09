@@ -57,7 +57,7 @@ export const TextAbout = styled.Text`
     font-family: 'Roboto-Regular';
     color: #77393e; 
     font-size: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 13px;
 `;
 export const Views = styled.View`
     margin-right: 17px;

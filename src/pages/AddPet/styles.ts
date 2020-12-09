@@ -18,12 +18,15 @@ export const ContainerHeader = styled.View`
     flex-direction: row;
     margin-bottom: 34px;
 `;
-export const ContainerBody = styled.View`    
+export const ContainerBody = styled.View`
     flex: 1;
     background: #fff3f4;
     margin-top: -34px;
     border-top-left-radius: 35px;
     border-top-right-radius: 35px;
+`;
+export const ContainerInput = styled.View`    
+    
     padding: 30px;
 
     flex-direction: column;
@@ -68,4 +71,26 @@ export const ImageSelect = styled.Image`
 `;
 export const ImageSelectContainer= styled.View`
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
+export const TextInfo = styled.Text`
+    color: #77393e;
+    font-size: 16px;
+    font-family: 'Roboto-Bold';
+    margin-bottom: 5px;
+    margin-left: 10px;
+`;
+export const ButtonTextModalize = styled.Text`
+    font-size: 16px;
+    color: #77393e;
+    font-family: 'Roboto-Bold';
+`;
+export const ButtonDeleteImage = styled.TouchableOpacity ` 
+    padding: 8px;
+    padding-top: 8px;
+    margin-top: 18px;
+`;
+export const ImageSelectDelete= styled.TouchableOpacity`
+    
 `;

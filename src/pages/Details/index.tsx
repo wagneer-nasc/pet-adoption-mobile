@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, Image, Dimensions, Text, ScrollView } from 'react-native';
+import { View, Image, Dimensions, Text, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import api from '../../service/api';
@@ -28,18 +28,16 @@ export interface Pet {
 
 }
 
-
 interface PetListRouteParams {
     id: string;
     type: string;
 }
+
 const Details: React.FC = () => {
     const navigation = useNavigation();
-
     const route = useRoute();
-    const [pet, setPet] = useState<Pet>();
-
     const params = route.params as PetListRouteParams;
+    const [pet, setPet] = useState<Pet>();
 
     useEffect(() => {
         handleUpdateViewPet(params.id);
@@ -54,6 +52,9 @@ const Details: React.FC = () => {
         await api.get(`/pets/${params.id}/show`).then(response => {
             setPet(response.data);
         })
+    }
+    function handleAdotionPetContact() {
+        Alert.alert('Contato para adoção', `${pet?.contact}`);
     }
 
     return (
@@ -98,7 +99,7 @@ const Details: React.FC = () => {
                         <ContainerInfPet>
                             <ContainerInfo>
                                 <TextInfo>Idade</TextInfo>
-                                <TextInfo>{pet?.age}</TextInfo>
+                                <TextInfo>{pet?.age} Meses</TextInfo>
                             </ContainerInfo>
 
                             <ContainerInfo>
@@ -120,7 +121,8 @@ const Details: React.FC = () => {
                     style={{ padding: 10 }}>
                     <Icon name="corner-down-left" size={30} color='#77393e' />
                 </ButtonBack>
-                <Button>Adotar</Button>
+                <Button onPress={() => { handleAdotionPetContact() }}
+                >Adotar</Button>
             </ContainerButtonBackAdaption>
         </>
     );

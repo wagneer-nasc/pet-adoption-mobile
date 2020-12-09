@@ -60,7 +60,7 @@ export const TextInfo = styled.Text`
     margin-bottom: 5px;
 `;
 export const ContainerAgeWeight = styled.View`
-     height: 60px;
+     height: 65px;
      width: 90px; 
      padding: 3px;
      border-radius: 10px;
