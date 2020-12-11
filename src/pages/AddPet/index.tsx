@@ -1,33 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, Text } from 'react-native';
-import logo from '../../assets/logo.png';
+import { useNavigation } from '@react-navigation/native';
+import api from '../../service/api';
+import logoImage from '../../assets/logo.png';
 import Input from '../../components/Input';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import ImagePicker from 'react-native-image-picker';
 import { Modalize } from 'react-native-modalize';
 import {
-    ButtonBack,
-    ContainerButtonAddPet,
-    ButtonAddSpecie,
-    TextButtonAddSpecie,
-    Container,
-    Title,
-    ContainerHeader,
-    ContainerInput,
-    ButtonAddSexo,
-    TextButtonAddSexo,
-    ImageSelectContainer,
-    ImageSelect,
-    ContainerBody,
-    TextInfo,
-    ButtonDeleteImage,
-    ButtonTextModalize,
-    ImageSelectDelete,
+    Alert, Image, KeyboardAvoidingView,
+    Platform, ScrollView, Text
+} from 'react-native';
 
+import {
+    ButtonBack, ContainerButtonAddPet, ButtonAddSpecie, TextButtonAddSpecie, Container,
+    Title, ContainerHeader, ContainerInput, ButtonAddSexo, TextButtonAddSexo, ImageSelectContainer,
+    ImageSelect, ContainerBody, TextInfo, ButtonDeleteImage, ButtonTextModalize, ImageSelectDelete,
 } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import api from '../../service/api';
 
 interface Sexo {
     female: string,
@@ -158,7 +147,7 @@ const AddPet: React.FC = () => {
     return (
         <Container>
             <ContainerHeader>
-                <Image style={{ height: 180, width: 140 }} source={logo} />
+                <Image style={{ height: 180, width: 140 }} source={logoImage} />
                 <Title>
                     Olá, Quer doar seu pet?{"\n"}
                     Cadastre-o.  <Text><Icon name="heart" size={28} /></Text>
@@ -229,6 +218,7 @@ const AddPet: React.FC = () => {
                                 onChangeText={setAge}
                                 name="age"
                                 returnKeyType="next"
+                                maxLength={2}
                                 keyboardType="numeric" />
                             <TextInfo>Digite um numero para contato</TextInfo>
                             <Input

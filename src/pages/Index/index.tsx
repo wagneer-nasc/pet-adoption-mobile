@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView } from 'react-native';
-import logo from '../../assets/logo.png';
-import dog from '../../assets/dog.png';
-import cat from '../../assets/cat.png';
-import porquinhoDaIndia from '../../assets/porquinhoDaIndia.png';
-import papagaio from '../../assets/papagaio.png';
-import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
-
-import Icon from 'react-native-vector-icons/Feather';
-import {
-    NamePetList, TextRecomendation, ContainerButtonAddPet, ContainerIconSex,
-    ContainerRecomendation, ContainerViews,
-    Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet, ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet, ContainerInfoPet, TextInfo, ButtonAddPet
-} from './styles';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../service/api';
-
+import logoImage from '../../assets/logo.png';
+import dogImage from '../../assets/dog.png';
+import catImage from '../../assets/cat.png';
+import porquinhoDaIndiaImage from '../../assets/porquinhoDaIndia.png';
+import papagaioImage from '../../assets/papagaio.png';
+import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/Feather';
+import {
+    NamePetList, TextRecomendation, ContainerButtonAddPet, ContainerIconSex, ContainerRecomendation,
+    ContainerViews, Container, Title, ContainerHeader, ContainerBody, ContainerImage, NamePet,
+    ContainerSeeMore, SeeMoreText, FlatListPetRecomendation, ContainerListInfo, ImagePet,
+    ContainerInfoPet, TextInfo, ButtonAddPet
+} from './styles';
 
 export interface Pet {
     id: string,
@@ -54,15 +53,15 @@ const Details: React.FC = () => {
     function handleNavigateToPetList(type: string) {
         navigation.navigate('PetList', { type });
     }
+
     function handleNavigateToDetailsPet(id: string, type: string) {
         navigation.navigate('Details', { id, type });
     }
 
-
     return (
         <Container>
             <ContainerHeader>
-                <Image style={{ height: 180, width: 140 }} source={logo} />
+                <Image style={{ height: 180, width: 140 }} source={logoImage} />
                 <Title>
                     Olá, Seja bem vindo,{"\n"}
                     e escolha o seu Pet!
@@ -71,7 +70,7 @@ const Details: React.FC = () => {
             <ContainerBody>
                 <ScrollView horizontal>
                     <ContainerImage onPress={() => { handleNavigateToPetList('Cachorro') }}>
-                        <Image style={{ width: 130, height: 100 }} source={dog} />
+                        <Image style={{ width: 130, height: 100 }} source={dogImage} />
                         <NamePet>Cachorros</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
@@ -79,7 +78,7 @@ const Details: React.FC = () => {
                         </ContainerSeeMore>
                     </ContainerImage>
                     <ContainerImage onPress={() => { handleNavigateToPetList('Gato') }}>
-                        <Image style={{ width: 130, height: 100 }} source={cat} />
+                        <Image style={{ width: 130, height: 100 }} source={catImage} />
                         <NamePet>Gatos</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
@@ -87,7 +86,7 @@ const Details: React.FC = () => {
                         </ContainerSeeMore>
                     </ContainerImage>
                     <ContainerImage onPress={() => { handleNavigateToPetList('Roedores') }}>
-                        <Image style={{ width: 130, height: 100 }} source={porquinhoDaIndia} />
+                        <Image style={{ width: 130, height: 100 }} source={porquinhoDaIndiaImage} />
                         <NamePet>Roedores</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>
@@ -95,7 +94,7 @@ const Details: React.FC = () => {
                         </ContainerSeeMore>
                     </ContainerImage>
                     <ContainerImage onPress={() => { handleNavigateToPetList('Aves') }}>
-                        <Image style={{ width: 130, height: 100 }} source={papagaio} />
+                        <Image style={{ width: 130, height: 100 }} source={papagaioImage} />
                         <NamePet>Aves</NamePet>
                         <ContainerSeeMore>
                             <SeeMoreText>Ver mais</SeeMoreText>

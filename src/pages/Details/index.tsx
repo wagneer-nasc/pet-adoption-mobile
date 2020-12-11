@@ -1,12 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, Image, Dimensions, Text, ScrollView, Alert } from 'react-native';
+import { Image, Dimensions, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import api from '../../service/api';
 import {
-    ContainerImages, ImagePet,
-    ButtonBack, ContainerNameLikes, Container, ContainerBody, NamePet, NickDescription, LabelAbout, TextAbout, ContainerInfPet, ContainerInfo, TextInfo, Views, ContainerButtonBackAdaption
+    ContainerImages, ImagePet, ButtonBack, ContainerNameLikes,
+    Container, ContainerBody, NamePet, NickDescription, LabelAbout, TextAbout,
+    ContainerInfPet, ContainerInfo, TextInfo, Views, ContainerButtonBackAdaption
 } from './styles';
 
 export interface Pet {

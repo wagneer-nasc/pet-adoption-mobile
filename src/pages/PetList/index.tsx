@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-    ContainerButtonAddPet, ButtonAddPet, ContainerSexAll, SexAll, TextSex,
-    Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex, ContainerAgeWeight, ContainerIconAddress, ButtonBack, ContainerSobHeader, FlatListPet, ContainerListInfo, NamePet, ImagePet, ContainerInfoPet, ContainerInfAgeWeight
-} from './styles';
+import React, { useEffect, useState } from 'react';
+import api from '../../service/api';
+import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import IconSexy from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import api from '../../service/api';
-import { ButtonProps, TouchableOpacity, TouchableOpacityComponent, TouchableOpacityProps, View } from 'react-native'
+import {
+    ContainerButtonAddPet, ButtonAddPet, ContainerSexAll, SexAll, TextSex,
+    Container, ContainerHeader, TitleHeader, TextInfo, ContainerIconSex,
+    ContainerAgeWeight, ContainerIconAddress, ButtonBack, ContainerSobHeader, FlatListPet,
+    ContainerListInfo, NamePet, ImagePet, ContainerInfoPet, ContainerInfAgeWeight
+} from './styles';
 
 export interface Pet {
     id: string,
@@ -51,7 +53,7 @@ const PetList: React.FC = () => {
         })
     }
 
-    function handleNavigateToDetailsPet(id: string) { 
+    function handleNavigateToDetailsPet(id: string) {
         navigation.navigate('Details', { id });
     }
 
@@ -113,7 +115,7 @@ const PetList: React.FC = () => {
 
                                 <ContainerIconSex>
                                     {
-                                        item.sex === 'F' ?
+                                        item.sex === 'Fêmea' ?
                                             <IconSexy name="symbol-female" size={20} color="#77393e" style={{ paddingRight: 8 }} /> :
                                             <IconSexy name="symbol-male" size={20} color="#77393e" style={{ paddingRight: 8 }} />
                                     }
