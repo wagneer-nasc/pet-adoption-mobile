@@ -105,7 +105,7 @@ const Details: React.FC = () => {
 
                             <ContainerInfo>
                                 <TextInfo>Peso</TextInfo>
-                                <TextInfo>{pet?.wieght}</TextInfo>
+                                <TextInfo>{pet?.wieght} Kg</TextInfo>
                             </ContainerInfo>
 
                             <ContainerInfo>

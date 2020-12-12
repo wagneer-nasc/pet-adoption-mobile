@@ -68,7 +68,9 @@ const Details: React.FC = () => {
                 </Title>
             </ContainerHeader>
             <ContainerBody>
-                <ScrollView horizontal>
+                <ScrollView 
+                showsHorizontalScrollIndicator={false}
+                horizontal>
                     <ContainerImage onPress={() => { handleNavigateToPetList('Cachorro') }}>
                         <Image style={{ width: 130, height: 100 }} source={dogImage} />
                         <NamePet>Cachorros</NamePet>
@@ -109,6 +111,7 @@ const Details: React.FC = () => {
                 <FlatListPetRecomendation
                     data={pets}
                     keyExtractor={(pet: Pet) => pet.id}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }: { item: Pet }) => (
                         <>
                             <ContainerListInfo onPress={() => { handleNavigateToDetailsPet(item.id, item.specie) }}>

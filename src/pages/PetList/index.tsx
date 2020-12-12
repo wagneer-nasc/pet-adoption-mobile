@@ -130,7 +130,7 @@ const PetList: React.FC = () => {
 
                                     <ContainerAgeWeight>
                                         <TextInfo>peso</TextInfo>
-                                        <TextInfo>{item.wieght}</TextInfo>
+                                        <TextInfo>{item.wieght} Kg</TextInfo>
                                     </ContainerAgeWeight>
                                 </ContainerInfAgeWeight>
 
